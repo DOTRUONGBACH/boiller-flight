@@ -1,0 +1,48 @@
+syntax = "proto3";
+package training;
+option go_package = "./;pb";
+
+import "google/protobuf/timestamp.proto";
+import "passenger.proto";
+import "customer.proto";
+
+service TicketOwnerServiceRPC {
+    rpc GetTicketOwnerById(GetTicketOwnerByIdRequest) returns (TicketOwner);
+    rpc CreateTicketOwner(CreateTicketOwnerRequest) returns (TicketOwner);
+    rpc UpdateTicketOwnerById(UpdateTicketOwnerByIdRequest) returns (TicketOwner);
+    rpc DeleteTicketOwner(DeleteTicketOwnerRequest) returns (DeleteTicketOwnerResponse);
+}
+
+message TicketOwner {
+    string id = 1;
+    Passenger passenger = 2;
+    Customer customer = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp updated_at = 5;
+}
+
+message TicketOwnerInput {
+    string customer_id = 1;
+    string passenger_id = 2;
+}
+
+message GetTicketOwnerByIdRequest {
+    string id = 1;
+}   
+
+message CreateTicketOwnerRequest {
+    TicketOwnerInput TicketOwnerInput = 1;
+}
+
+message UpdateTicketOwnerByIdRequest {
+    string id = 1;
+    TicketOwnerInput TicketOwnerInput = 2;
+}
+
+message DeleteTicketOwnerRequest {
+    string id = 1;
+}
+
+message DeleteTicketOwnerResponse {
+    bool is_deleted = 1;
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+package training;
+option go_package = "./;pb";
+
+import "google/protobuf/timestamp.proto";
+import "flight.proto";
+import "ticketOwner.proto";
+import "booking.proto";
+
+service TicketServiceRPC {
+    rpc GetTicketById(GetTicketByIdRequest) returns (Ticket);
+    rpc CreateTicket(CreateTicketRequest) returns (Ticket);
+    rpc UpdateTicketById(UpdateTicketByIdRequest) returns (Ticket);
+    rpc UpdateTicketStatusByFlightId(UpdateTicketStatusByFlightIdRequest) returns (UpdateTicketStatusByFlightIdResponse);
+    rpc DeleteTicket(DeleteTicketRequest) returns (DeleteTicketResponse);
+}
+
+message Ticket {
+    string id = 1;
+    enum Class{
+        Economy = 0;
+        Business = 1;
+    };
+    Class class = 2;
+    enum Status{
+        Paid = 0;
+        Canceled = 1;
+    };
+    Status status = 3;
+    Flight flight = 4;
+    Booking booking = 5;
+    TicketOwner ticketOwner = 6;
+    google.protobuf.Timestamp created_at = 7;
+    google.protobuf.Timestamp updated_at = 8;
+}
+
+message GetTicketByIdRequest {
+    string id = 1;
+}   
+
+message DeleteTicketRequest {
+    string id = 1;
+}
+
+message DeleteTicketResponse {
+    bool is_deleted = 1;
+}

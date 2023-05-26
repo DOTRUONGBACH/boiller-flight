@@ -1,0 +1,92 @@
+type Flight {
+    id: ID!
+    flightCode: String!
+    from: String!
+    to: String!
+    departureDate: Time!
+    departureTime: Time!
+    duration: Int!
+    capacity: Int!
+    economyAvailableSeat: Int!
+    businessAvailableSeat: Int!
+    status: FlightStatus!
+    createdAt: Time
+    updatedAt: Time
+}
+
+
+enum FlightStatus {
+    Scheduled
+    Delayed
+    Departed
+    Arrived
+    Canceled
+    Full
+}
+
+enum FlightOrderField {
+    ID
+    FLIGHT_CODE
+    CREATED_AT
+    UPDATED_AT
+}
+
+input FlightOrder {
+    direction: OrderDirection!
+    field: FlightOrderField
+}
+
+type FlightConnection {
+    edges: [FlightEdge]
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type FlightEdge {
+    node: Flight
+    cursor: Cursor!
+}
+
+input FlightInput{
+    flightCode: String!
+    from: String!
+    to: String!
+    departureDate: Time!
+    departureTime: Time!
+    duration: Int!
+    capacity: Int!
+    economyAvailableSeat: Int!
+    businessAvailableSeat: Int!
+    status: FlightStatus!
+}
+
+
+input NewFlightInput {
+    flightInput: FlightInput!
+}
+
+
+input UpdateFlightByFlightCodeInput{
+    flightInput: FlightInput!
+}
+
+input UpdateAvailableSeatInput{
+    flightCode: String!
+    economyAvailableSeat: Int!
+    businessAvailableSeat: Int!
+}
+
+input UpdateFlightStatusInput{
+    id: String!
+    status: FlightStatus!
+}
+
+input GetFlightByFlightCodeInput{
+    flightInput: FlightInput!
+}
+
+input GetFlightByDateRangeInput{
+    startDate: Time!
+    endDate: Time!
+}
+

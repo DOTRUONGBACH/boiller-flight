@@ -1,0 +1,66 @@
+syntax = "proto3";
+package training;
+option go_package = "./;pb";
+
+import "google/protobuf/timestamp.proto";
+
+service PassengerServiceRPC {
+    rpc GetPassengerByCitizenId(GetPassengerByCitizenIdRequest) returns(Passenger);
+    rpc CreatePassenger(CreatePassengerRequest) returns (Passenger);
+    rpc UpdatePassengerById(UpdatePassengerByIdRequest) returns (Passenger);
+    rpc DeletePassenger(DeletePassengerRequest) returns (DeletePassengerResponse);
+}
+
+message Passenger {
+    string id = 1;
+    string name = 2;
+    string citizen_id = 3;
+    string phone = 4;
+    string email = 5;
+    string address = 6;
+    enum Gender{
+        Male = 0;
+        Female = 1;
+        Other = 2;
+    };
+    Gender gender = 7;
+    google.protobuf.Timestamp dob = 8;
+    google.protobuf.Timestamp created_at = 9;
+    google.protobuf.Timestamp updated_at = 10;
+}
+
+message GetPassengerByCitizenIdRequest {
+    string citizen_id = 1;
+}
+
+message PassengerInput {
+    string name = 1;
+    string citizen_id = 2;
+    string phone = 3;
+    string email = 4;
+    string address = 5;
+    enum Gender{
+        Male = 0;
+        Female = 1;
+        Other = 2;
+    };
+    Gender gender = 6;
+    google.protobuf.Timestamp dob = 7;
+}
+
+message CreatePassengerRequest {
+    PassengerInput passengerInput = 1;
+}
+
+message UpdatePassengerByIdRequest {
+    string id = 1;
+    PassengerInput passengerInput = 2;
+}
+
+message DeletePassengerRequest {
+    string id = 1;
+}
+
+message DeletePassengerResponse {
+    bool is_deleted = 1;
+}

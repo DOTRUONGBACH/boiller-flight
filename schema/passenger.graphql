@@ -1,0 +1,67 @@
+type Passenger {
+    id: ID!
+    name: String!
+    citizenId: String!
+    phone: String!
+    email: String!
+    address: String!
+    gender: PassengerGender!
+    dob: Time!
+    createdAt: Time
+    updatedAt: Time
+}
+
+enum PassengerGender {
+    Male
+    Female
+    Other
+}
+
+enum PassengerOrderField {
+    ID
+    NAME
+    EMAIL
+    CREATED_AT
+    UPDATED_AT
+}
+
+input PassengerOrder {
+    direction: OrderDirection!
+    field: PassengerOrderField
+}
+
+type PassengerConnection {
+    edges: [PassengerEdge]
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type PassengerEdge {
+    node: Passenger
+    cursor: Cursor!
+}
+
+input PassengerInput{
+    name: String!
+    citizenId: String!
+    phone: String!
+    email: String!
+    address: String!
+    gender: PassengerGender!
+    dob: Time!
+}
+
+input NewPassengerInput {
+    passenger: PassengerInput!
+}
+
+input UpdatePassengerByIdInput {
+    id: ID!
+    passenger: PassengerInput!
+}
+
+# type PassengerByCitizenId{
+#     passenger: PassengerInput!
+# }
+
+

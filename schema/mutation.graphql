@@ -1,0 +1,75 @@
+
+type Mutation {
+    #Customer
+    # newCustomer(input: NewCustomerInput!): Customer!
+    # updatePassenger(input: UpdateCustomerByCitizenIdInput): Customer!
+    # deleteCustomer(id: ID!): Boolean!
+    Customer: CustomerOps! @goField(forceResolver: true)
+
+    #Passenger
+    # newPassenger(input: NewPassengerInput!): Passenger!
+    # updatePassenger(input: UpdatePassengerByIdInput): Passenger!
+    # deletePassenger(id: ID!): Boolean!
+    Passenger: PassengerOps! @goField(forceResolver: true)
+
+    #Account
+    # newAccount(input: NewAccountInput!): Account!
+    # login(input: AccountLogin!): AccountLoginResponse!
+    # accResetPassword(input: AccountResetPasswordInput!): String!
+    # updateAccountRole(input: UpdateAccountByIDInput!): Account!
+    # updateAccountStatus(input: UpdateAccountStatusRequest!): Account!
+    Account: AccountOps! @goField(forceResolver: true)
+
+    #Flight
+    # newFlight(input: NewFlightInput!): Flight!
+    # updateFlightInfor(input: UpdateFlightByFlightCodeInput!): Flight!
+    # updateFlightStatus(input: UpdateFlightStatusInput!): Flight!
+    Flight: FlightOps! @goField(forceResolver: true)
+
+    #Ticket
+    # newTicket(input: NewTicketInput!): Ticket!
+    # UpdateTicketByID(input: UpdateTicketInputByID!): Ticket!
+    Ticket: TicketOps! @goField(forceResolver: true)
+
+    #Booking
+    # newBooking(input: NewBookingInput!): Booking!
+    # updateBookingStatus(input: UpdateBookingStatusInput!): Booking!
+    Booking: BookingOps! @goField(forceResolver: true)
+
+}
+
+type AccountOps {
+    newAccount(input: NewAccountInput!): Account! @goField(forceResolver: true)
+    login(input: AccountLogin!): AccountLoginResponse! @goField(forceResolver: true)
+    accResetPassword(input: AccountResetPasswordInput!): String! @goField(forceResolver: true)
+    updateAccountRole(input: UpdateAccountByIDInput!): Account! @goField(forceResolver: true)
+    updateAccountStatus(input: UpdateAccountStatusRequest!): Account! @goField(forceResolver: true)
+}
+
+type BookingOps {
+    newBooking(input: NewBookingInput!): Booking! @goField(forceResolver: true) 
+    updateBookingStatus(input: UpdateBookingStatusInput!):  Boolean! @goField(forceResolver: true)
+}
+
+type TicketOps { 
+    newTicket(input: NewTicketInput!): Ticket! @goField(forceResolver: true)
+    UpdateTicketByID(input: UpdateTicketInputByID!): Ticket! @goField(forceResolver: true)
+}
+
+type FlightOps {
+    newFlight(input: NewFlightInput!): Flight! @goField(forceResolver: true)
+    updateFlightInfor(input: UpdateFlightByFlightCodeInput!): Flight! @goField(forceResolver: true)
+    updateFlightStatus(input: UpdateFlightStatusInput!): Flight! @goField(forceResolver: true)
+}
+
+type PassengerOps {
+    newPassenger(input: NewPassengerInput!): Passenger! @goField(forceResolver: true)
+    updatePassenger(input: UpdatePassengerByIdInput): Passenger! @goField(forceResolver: true)
+    deletePassenger(id: ID!): Boolean! @goField(forceResolver: true)
+}
+
+type CustomerOps {
+    # newCustomer(input: NewCustomerInput!): Customer!
+    # updatePassenger(input: UpdateCustomerByCitizenIdInput): Customer!
+    deleteCustomer(id: ID!): Boolean! @goField(forceResolver: true)
+}

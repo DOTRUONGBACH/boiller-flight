@@ -1,0 +1,83 @@
+type Booking {
+    id: ID!
+    totalEconomyTicket: Int!
+    totalBusinessTicket: Int!
+    status: BookingStatus!
+    createdAt: Time
+    updatedAt: Time
+}
+
+enum BookingStatus {
+    Success 
+    Fail
+    Canceled
+}
+
+enum BookingType {
+    OneWay
+    RoundTrip
+}
+
+enum BookingOrderField {
+    ID
+    CREATED_AT
+    UPDATED_AT
+}
+
+input BookingOrder {
+    direction: OrderDirection!
+    field: BookingOrderField
+}
+
+type BookingConnection {
+    edges: [BookingEdge]
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type BookingEdge {
+    node: Booking
+    cursor: Cursor!
+}
+
+input NewTicketInput {
+    class: Class!
+    status: TicketStatus!
+    flight_id: String!
+    booking_id: String!
+}
+
+input UpdateBookingInput{
+    totalEconomyTicket: Int!
+    totalBusinessTicket: Int!
+    status: BookingStatus!
+}
+
+
+input NewBookingInput {
+    flightCode: String!
+    name: String!
+    citizenID: String!
+    email: String!
+    phone: String!
+    address: String!
+    DateOfBirth: Time!
+    gender: Gender!
+    totalEconomyTicket: Int!
+    totalBusinessTicket: Int!
+    type: BookingType!
+}
+
+input UpdateBookingStatusInput{
+    id: ID!
+    status: BookingStatus!
+}
+
+input CustomerBookingHistoryInput{
+    customerId: ID!
+}
+
+
+
+
+

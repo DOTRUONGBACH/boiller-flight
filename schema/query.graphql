@@ -1,0 +1,70 @@
+type Query {
+    
+    #Account
+    # Accounts(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: AccountOrder): AccountConnection!
+    # GetAccountByID(input: ID!): AccountByIDResponse!
+    Account: AccountQuery! @goField(forceResolver: true)
+
+
+    #Customer
+    # Customers(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: CustomerOrder): CustomerConnection!
+    Customer: CustomerQuery! @goField(forceResolver: true)
+
+
+    #Passenger
+    # Passengers(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: PassengerOrder): PassengerConnection!
+    # GetPassengerByCitizenID(input: String!): Passenger!
+    Passenger: PassengerQuery! @goField(forceResolver: true)
+
+    
+    #Ticket
+    # Tickets(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: TicketOrder): TicketConnection!
+    # GetTicketByID(input: ID!): TicketByIDResponse!
+    Ticket: TicketQuery! @goField(forceResolver: true)
+
+
+    #Flight
+    # Flights(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: FlightOrder): FlightConnection!
+    # FlightsByDateRange(input: GetFlightByDateRangeInput!): [Flight!]!
+    # GetFlightByFlightCode(input: String!): Flight!
+    Flight: FlightQuery! @goField(forceResolver: true)
+
+
+    #Booking
+    # Bookings(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: BookingOrder): BookingConnection!
+    # GetBookingByID(input: ID!): Booking!
+    # viewBookingHistory(input: CustomerBookingHistoryInput!): [Booking!]!
+    Booking: BookingQuery! @goField(forceResolver: true)
+
+}
+
+type AccountQuery {
+    Accounts(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: AccountOrder): AccountConnection! @goField(forceResolver: true) @hasRole(role: Administrator)
+    GetAccountByID(input: ID!): AccountByIDResponse! @goField(forceResolver: true)
+}
+
+type CustomerQuery {
+    Customers(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: CustomerOrder): CustomerConnection! @goField(forceResolver: true)
+}
+
+type PassengerQuery {
+    Passengers(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: PassengerOrder): PassengerConnection! @goField(forceResolver: true)
+    GetPassengerByCitizenID(input: String!): Passenger! @goField(forceResolver: true)
+} 
+
+type FlightQuery {
+    Flights(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: FlightOrder): FlightConnection! @goField(forceResolver: true)
+    FlightsByDateRange(input: GetFlightByDateRangeInput!): [Flight!]! @goField(forceResolver: true)
+    GetFlightByFlightCode(input: String!): Flight! @goField(forceResolver: true)
+}
+
+type TicketQuery {
+    Tickets(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: TicketOrder): TicketConnection! @goField(forceResolver: true)
+    GetTicketByID(input: ID!): TicketByIDResponse! @goField(forceResolver: true)
+}
+
+type BookingQuery {
+    Bookings(after: Cursor, first: Int, before: Cursor, last: Int, orderBy: BookingOrder): BookingConnection! @goField(forceResolver: true)
+    GetBookingByID(input: ID!): Booking! @goField(forceResolver: true)
+    viewBookingHistory(input: CustomerBookingHistoryInput!): [Booking!]! @goField(forceResolver: true)
+}

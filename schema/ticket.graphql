@@ -1,0 +1,61 @@
+type Ticket {
+    id: ID!
+    class: Class!
+    status: TicketStatus!
+    createdAt: Time
+    updatedAt: Time
+}
+
+
+enum Class {
+    Economy
+    Business
+}
+
+enum TicketStatus {
+    Paid
+    Canceled
+}
+
+
+enum TicketOrderField {
+    ID
+    EMAIL
+    CREATED_AT
+    UPDATED_AT
+}
+
+input TicketOrder {
+    direction: OrderDirection!
+    field: TicketOrderField
+}
+
+type TicketConnection {
+    edges: [TicketEdge]
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type TicketEdge {
+    node: Ticket
+    cursor: Cursor!
+}
+
+input UpdateTicketInputByID {
+    id: ID!
+    class: Class!
+    status: TicketStatus!
+    flight_id: String!
+    booking_id: String!
+}
+
+input UpdateTicketStatusInput {
+    flight_id: ID!
+    status: TicketStatus!
+}
+
+type TicketByIDResponse{
+    class: Class!
+    flight: Flight!
+}
+

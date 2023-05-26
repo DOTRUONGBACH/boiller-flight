@@ -1,0 +1,113 @@
+syntax = "proto3";
+package training;
+option go_package = "./;pb";
+
+import "google/protobuf/timestamp.proto";
+
+service FlightServiceRPC {
+    rpc GetFlightById(GetFlightByIdRequest) returns (Flight);
+    rpc GetFlightByFlightCode(GetFlightByFlightCodeRequest) returns (Flight);
+    rpc CreateFlight(CreateFlightRequest) returns (Flight);
+    rpc UpdateFlightByFlightCode(UpdateFlightByFlightCodeRequest) returns (Flight);
+    rpc UpdateAvailableSeat(UpdateFlightAvailableSeatRequest) returns (Flight);
+    rpc UpdateFlightStatus(UpdateFlightStatusRequest) returns (Flight);
+    rpc DeleteFlight(DeleteFlightRequest) returns (DeleteFlightResponse);
+    rpc FindFlightByDateRange(FindFlightByDateRangeRequest) returns (Flights);
+}
+
+message Flight {
+    string id = 1;
+    string flight_code = 2;
+    string from = 3;
+    string to = 4;
+    google.protobuf.Timestamp  departure_date = 5;
+    google.protobuf.Timestamp  departure_time = 6;
+    int32 duration = 7;
+    int32 capacity = 8;
+    int32 ecomomy_available_seat = 9;
+    int32 business_available_seat = 10;
+    enum Status{
+        Scheduled = 0;
+        Delayed = 1;
+        Departed = 2;
+        Arrived = 3;
+        Canceled = 4;
+        Full = 5;
+    };
+    Status status = 11;
+    google.protobuf.Timestamp created_at = 12;
+    google.protobuf.Timestamp updated_at = 13;
+}
+
+message FlightInput {
+    string flight_code = 1;
+    string from = 2;
+    string to = 3;
+    google.protobuf.Timestamp  departure_date = 4;
+    google.protobuf.Timestamp  departure_time = 5;
+    int32 duration = 6;
+    int32 capacity = 7;
+    int32 ecomomy_available_seat = 8;
+    int32 business_available_seat = 9;
+    enum Status{
+        Scheduled = 0;
+        Delayed = 1;
+        Departed = 2;
+        Arrived = 3;
+        Canceled = 4;
+        Full = 5;
+    };
+    Status status = 10;
+}
+
+message GetFlightByIdRequest {
+    string id = 1;
+}
+
+message GetFlightByFlightCodeRequest {
+    string flight_code = 1;
+}
+
+message CreateFlightRequest {
+    FlightInput flightInput = 1;
+}
+
+message UpdateFlightByFlightCodeRequest {
+    FlightInput flightInput = 1;
+}
+
+message UpdateFlightAvailableSeatRequest {
+    string flight_code = 1;
+    int32 ecomomy_available_seat = 2;
+    int32 business_available_seat = 3;
+}
+
+message UpdateFlightStatusRequest {
+    string id = 1;
+    enum Status{
+        Scheduled = 0;
+        Delayed = 1;
+        Departed = 2;
+        Arrived = 3;
+        Canceled = 4;
+        Full = 5;
+    };
+    Status status = 2;
+}
+
+message DeleteFlightRequest {
+    string id = 1;
+}
+
+message DeleteFlightResponse {
+    bool is_deleted = 1;
+}
+
+message FindFlightByDateRangeRequest {
+    google.protobuf.Timestamp  first_date = 1;
+    google.protobuf.Timestamp  second_date = 2;
+}
+
+message Flights {
+    repeated Flight flights = 1;
+}

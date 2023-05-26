@@ -1,0 +1,131 @@
+syntax = "proto3";
+package training;
+option go_package = "./;pb";
+
+import "google/protobuf/timestamp.proto";
+
+service BookingServiceRPC {
+    rpc GetBookingByID(GetBookingByIdRequest) returns(Booking);
+    rpc CreateBooking(CreateBookingRequest) returns (Booking);
+    rpc UpdateBookingStatus(UpdateBookingStatusRequest) returns (UpdateBookingStatusResponse);
+    rpc DeleteBooking(DeleteBookingRequest) returns (DeleteBookingResponse);
+    rpc CustomerBookingHistory(CustomerBookingHistoryRequest) returns (Bookings);
+}
+
+message Booking {
+    string id = 1;
+    // float total_cost = 2;
+    int32 total_economy_ticket = 2;
+    int32 total_business_ticket = 3;
+    enum BookingStatus{
+        Success = 0;
+        Fail = 1;
+        Canceled = 2;
+    };
+    BookingStatus status = 4;
+    enum Type{
+        OneWay = 0;
+        RoundTrip = 1;
+    };
+    Type type = 5; 
+    google.protobuf.Timestamp created_at = 6;
+    google.protobuf.Timestamp updated_at = 7;
+}
+
+message BookingInput {
+    // float total_cost = 1;
+    int32 total_economy_ticket = 1;
+    int32 total_business_ticket = 2;
+    enum BookingStatus{
+        Success = 0;
+        Fail = 1;
+        Canceled = 2;
+    };
+    BookingStatus status = 3;
+    enum Type{
+        OneWay = 0;
+        RoundTrip = 1;
+    };
+    Type type = 4;
+    string flight_id = 5;
+    string customer_id = 6;
+    string passenger_id = 7;
+}
+
+message TicketInput {
+    enum Class{
+        Economy = 0;
+        Business = 1;
+    };
+    Class class = 1;
+    enum TicketStatus{
+        Paid = 0;
+        Canceled = 1;
+    };
+    TicketStatus status = 2;
+    string flight_id = 3;
+    string booking_id = 4;
+    string ticket_owner_id = 5;
+}
+
+message CreateTicketRequest {
+    TicketInput TicketInput = 1;
+}
+
+message UpdateTicketByIdRequest {
+    string id = 1;
+    TicketInput TicketInput = 2;
+}
+
+message UpdateTicketStatusByFlightIdRequest {
+    string id = 1;
+    enum TicketStatus{
+        Paid = 0;
+        Canceled = 1;
+    };
+    TicketStatus status = 2;
+}
+
+message UpdateTicketStatusByFlightIdResponse {
+    bool is_updated = 1; 
+}
+
+message GetBookingByIdRequest {
+    string id = 1;
+}
+
+message CreateBookingRequest {
+    BookingInput bookingInput = 1;
+    CreateTicketRequest createTicketRequest = 2;
+}
+
+message UpdateBookingStatusRequest {
+    string id = 1;
+    enum BookingStatus{
+        Success = 0;
+        Fail = 1;
+        Canceled = 2;
+    };
+    BookingStatus status = 2;
+}
+
+message UpdateBookingStatusResponse {
+    bool is_updated = 1;
+}
+
+message DeleteBookingRequest {
+    string id = 1;
+}
+
+message DeleteBookingResponse {
+    bool is_deleted = 1;
+}
+
+message CustomerBookingHistoryRequest {
+    string customer_id = 1;
+}
+
+message Bookings {
+    repeated Booking bookings= 1;
+}
+

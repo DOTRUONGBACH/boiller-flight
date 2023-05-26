@@ -1,0 +1,90 @@
+type Account {
+    id: ID!
+    email: String!
+    oldEmail: String! @deprecated(reason: "oldEmail is deprecated. Use newEmail instead.")
+    password: String!
+    role: Role!
+    createdAt: Time
+    updatedAt: Time
+}
+
+
+enum AccountStatus {
+    Inactive
+    Active
+}
+
+enum AccountOrderField {
+    ID
+    EMAIL
+    CREATED_AT
+    UPDATED_AT
+}
+
+input AccountOrder {
+    direction: OrderDirection!
+    field: AccountOrderField
+}
+
+type AccountConnection {
+    edges: [AccountEdge]
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type AccountEdge {
+    node: Account
+    cursor: Cursor!
+}
+
+input CustomerInput{
+    name: String!
+    citizenId: String!
+    phone: String!
+    address: String!
+    gender: CustomerGender!
+    dob: Time!
+}
+
+
+input NewAccountInput {
+    customer: CustomerInput!
+    email: String!
+    password: String!
+    role: Role!
+}
+
+
+input UpdateAccountByIDInput {
+    id: ID!
+    role: Role!
+}
+
+input UpdateAccountStatusRequest {
+    id: ID!
+    status: AccountStatus!
+}
+
+input AccountResetPasswordInput {
+    email: String!
+    currentPassword: String!
+    newPassword: String!
+}
+
+
+input AccountLogin {
+    email: String!
+    password: String!
+}
+
+type AccountLoginResponse{
+    token: String!
+    status: Boolean!
+}
+
+type AccountByIDResponse{
+    email: String!
+    role: Role!
+    accOwner: Customer!
+}
+
